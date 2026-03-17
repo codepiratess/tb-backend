@@ -1,0 +1,426 @@
+
+> tb-backend@0.0.1 build
+> nest build
+
+[96mnode_modules/@supabase/auth-js/src/lib/fetch.ts[0m:[93m215[0m:[93m7[0m - [91merror[0m[90m TS18047: [0m'session' is possibly 'null'.
+
+[7m215[0m       session.expires_at = expiresAt(data.expires_in)
+[7m   [0m [91m      ~~~~~~~[0m
+[96mnode_modules/@supabase/auth-js/src/lib/helpers.ts[0m:[93m107[0m:[93m37[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m107[0m     return (...args) => customFetch(...args)
+[7m   [0m [91m                                    ~~~~~~~[0m
+[96mnode_modules/@supabase/auth-js/src/lib/helpers.ts[0m:[93m109[0m:[93m29[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m109[0m   return (...args) => fetch(...args)
+[7m   [0m [91m                            ~~~~~~~[0m
+[96mnode_modules/@supabase/functions-js/src/helper.ts[0m:[93m5[0m:[93m37[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m5[0m     return (...args) => customFetch(...args)
+[7m [0m [91m                                    ~~~~~~~[0m
+[96mnode_modules/@supabase/functions-js/src/helper.ts[0m:[93m7[0m:[93m29[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m7[0m   return (...args) => fetch(...args)
+[7m [0m [91m                            ~~~~~~~[0m
+[96mnode_modules/@supabase/realtime-js/src/RealtimeChannel.ts[0m:[93m337[0m:[93m42[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; type: string; filter: { [key: string]: any; }; callback: Function; }' is not assignable to parameter of type 'never'.
+
+[7m337[0m                 newPostgresBindings.push({
+[7m   [0m [91m                                         ~[0m
+[7m338[0m                   ...clientPostgresBinding,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m339[0m                   id: serverPostgresFilter.id,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m340[0m                 })
+[7m   [0m [91m~~~~~~~~~~~~~~~~~[0m
+[96mnode_modules/@supabase/realtime-js/src/RealtimeClient.ts[0m:[93m531[0m:[93m39[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m531[0m       return (...args) => customFetch(...args)
+[7m   [0m [91m                                      ~~~~~~~[0m
+[96mnode_modules/@supabase/realtime-js/src/RealtimeClient.ts[0m:[93m533[0m:[93m31[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m533[0m     return (...args) => fetch(...args)
+[7m   [0m [91m                              ~~~~~~~[0m
+[96msrc/app.module.ts[0m:[93m48[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '(config: ConfigService) => ({ retryAttempts?: number; retryDelay?: number; toRetry?: (err: any) => boolean; autoLoadEntities?: boolean; verboseRetryLog?: boolean; manualInitialization?: boolean; } & Partial<...>) | ... 18 more ... | undefined' is not assignable to type '(...args: any[]) => TypeOrmModuleOptions | Promise<TypeOrmModuleOptions>'.
+  Type '({ retryAttempts?: number | undefined; retryDelay?: number | undefined; toRetry?: ((err: any) => boolean) | undefined; autoLoadEntities?: boolean | undefined; verboseRetryLog?: boolean | undefined; manualInitialization?: boolean | undefined; } & Partial<...>) | ... 18 more ... | undefined' is not assignable to type 'TypeOrmModuleOptions | Promise<TypeOrmModuleOptions>'.
+    Type 'undefined' is not assignable to type 'TypeOrmModuleOptions | Promise<TypeOrmModuleOptions>'.
+
+[7m48[0m       useFactory: (config: ConfigService) => config.get('database'),
+[7m  [0m [91m      ~~~~~~~~~~[0m
+
+  [96mnode_modules/@nestjs/typeorm/dist/interfaces/typeorm-options.interface.d.ts[0m:[93m46[0m:[93m5[0m
+    [7m46[0m     useFactory?: (...args: any[]) => Promise<TypeOrmModuleOptions> | TypeOrmModuleOptions;
+    [7m  [0m [96m    ~~~~~~~~~~[0m
+    The expected type comes from property 'useFactory' which is declared here on type 'TypeOrmModuleAsyncOptions'
+[96msrc/app.module.ts[0m:[93m54[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '(config: ConfigService) => { ttl: number | ((context: ExecutionContext) => number | Promise<number>) | undefined; limit: number | ((context: ExecutionContext) => number | Promise<number>) | undefined; }[]' is not assignable to type '(...args: any[]) => ThrottlerModuleOptions | Promise<ThrottlerModuleOptions>'.
+  Type '{ ttl: number | ((context: ExecutionContext) => number | Promise<number>) | undefined; limit: number | ((context: ExecutionContext) => number | Promise<...>) | undefined; }[]' is not assignable to type 'ThrottlerModuleOptions | Promise<ThrottlerModuleOptions>'.
+    Type '{ ttl: number | ((context: ExecutionContext) => number | Promise<number>) | undefined; limit: number | ((context: ExecutionContext) => number | Promise<...>) | undefined; }[]' is not assignable to type 'ThrottlerOptions[]'.
+      Type '{ ttl: number | ((context: ExecutionContext) => number | Promise<number>) | undefined; limit: number | ((context: ExecutionContext) => number | Promise<number>) | undefined; }' is not assignable to type 'ThrottlerOptions'.
+        Types of property 'limit' are incompatible.
+          Type 'number | ((context: ExecutionContext) => number | Promise<number>) | undefined' is not assignable to type 'Resolvable<number>'.
+            Type 'undefined' is not assignable to type 'Resolvable<number>'.
+
+[7m54[0m       useFactory: (config: ConfigService) => [
+[7m  [0m [91m      ~~~~~~~~~~[0m
+
+  [96mnode_modules/@nestjs/throttler/dist/throttler-module-options.interface.d.ts[0m:[93m32[0m:[93m5[0m
+    [7m32[0m     useFactory?: (...args: any[]) => Promise<ThrottlerModuleOptions> | ThrottlerModuleOptions;
+    [7m  [0m [96m    ~~~~~~~~~~[0m
+    The expected type comes from property 'useFactory' which is declared here on type 'ThrottlerAsyncOptions'
+[96msrc/config/app.config.ts[0m:[93m5[0m:[93m18[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m5[0m   port: parseInt(process.env.PORT, 10) || 5000,
+[7m [0m [91m                 ~~~~~~~~~~~~~~~~[0m
+[96msrc/config/database.config.ts[0m:[93m9[0m:[93m20[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m9[0m     port: parseInt(process.env.DB_PORT, 10),
+[7m [0m [91m                   ~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/main.ts[0m:[93m50[0m:[93m11[0m - [91merror[0m[90m TS2349: [0mThis expression is not callable.
+  Type 'typeof cookieParser' has no call signatures.
+
+[7m50[0m   app.use(cookieParser());
+[7m  [0m [91m          ~~~~~~~~~~~~[0m
+
+  [96msrc/main.ts[0m:[93m6[0m:[93m1[0m
+    [7m6[0m import * as cookieParser from 'cookie-parser';
+    [7m [0m [96m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Type originates at this import. A namespace-style import cannot be called or constructed, and will cause a failure at runtime. Consider using a default import or import require here instead.
+[96msrc/modules/analytics/analytics.controller.ts[0m:[93m4[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m4[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/analytics/analytics.controller.ts[0m:[93m5[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/roles.guard' or its corresponding type declarations.
+
+[7m5[0m import { RolesGuard } from '../../../common/guards/roles.guard';
+[7m [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/analytics/analytics.controller.ts[0m:[93m6[0m:[93m23[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/roles.decorator' or its corresponding type declarations.
+
+[7m6[0m import { Roles } from '../../../common/decorators/roles.decorator';
+[7m [0m [91m                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/analytics/analytics.controller.ts[0m:[93m7[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m7[0m import { Role } from '../../../common/enums/role.enum';
+[7m [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/analytics/analytics.service.ts[0m:[93m7[0m:[93m31[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/order-status.enum' or its corresponding type declarations.
+
+[7m7[0m import { PaymentStatus } from '../../../common/enums/order-status.enum';
+[7m [0m [91m                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.controller.ts[0m:[93m19[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m19[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.controller.ts[0m:[93m20[0m:[93m35[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/refresh-token.guard' or its corresponding type declarations.
+
+[7m20[0m import { RefreshTokenGuard } from '../../../common/guards/refresh-token.guard';
+[7m  [0m [91m                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.controller.ts[0m:[93m21[0m:[93m24[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/public.decorator' or its corresponding type declarations.
+
+[7m21[0m import { Public } from '../../../common/decorators/public.decorator';
+[7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.controller.ts[0m:[93m22[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/current-user.decorator' or its corresponding type declarations.
+
+[7m22[0m import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+[7m  [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.controller.ts[0m:[93m32[0m:[93m77[0m - [91merror[0m[90m TS1272: [0mA type referenced in a decorated signature must be imported with 'import type' or a namespace import when 'isolatedModules' and 'emitDecoratorMetadata' are enabled.
+
+[7m32[0m   async register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
+[7m  [0m [91m                                                                            ~~~~~~~~[0m
+
+  [96msrc/modules/auth/auth.controller.ts[0m:[93m13[0m:[93m10[0m
+    [7m13[0m import { Response, Request } from 'express';
+    [7m  [0m [96m         ~~~~~~~~[0m
+    'Response' was imported here.
+[96msrc/modules/auth/auth.controller.ts[0m:[93m43[0m:[93m71[0m - [91merror[0m[90m TS1272: [0mA type referenced in a decorated signature must be imported with 'import type' or a namespace import when 'isolatedModules' and 'emitDecoratorMetadata' are enabled.
+
+[7m43[0m   async login(@Body() dto: LoginDto, @Res({ passthrough: true }) res: Response) {
+[7m  [0m [91m                                                                      ~~~~~~~~[0m
+
+  [96msrc/modules/auth/auth.controller.ts[0m:[93m13[0m:[93m10[0m
+    [7m13[0m import { Response, Request } from 'express';
+    [7m  [0m [96m         ~~~~~~~~[0m
+    'Response' was imported here.
+[96msrc/modules/auth/auth.controller.ts[0m:[93m53[0m:[93m76[0m - [91merror[0m[90m TS1272: [0mA type referenced in a decorated signature must be imported with 'import type' or a namespace import when 'isolatedModules' and 'emitDecoratorMetadata' are enabled.
+
+[7m53[0m   async refresh(@CurrentUser() user: any, @Res({ passthrough: true }) res: Response) {
+[7m  [0m [91m                                                                           ~~~~~~~~[0m
+
+  [96msrc/modules/auth/auth.controller.ts[0m:[93m13[0m:[93m10[0m
+    [7m13[0m import { Response, Request } from 'express';
+    [7m  [0m [96m         ~~~~~~~~[0m
+    'Response' was imported here.
+[96msrc/modules/auth/auth.controller.ts[0m:[93m64[0m:[93m75[0m - [91merror[0m[90m TS1272: [0mA type referenced in a decorated signature must be imported with 'import type' or a namespace import when 'isolatedModules' and 'emitDecoratorMetadata' are enabled.
+
+[7m64[0m   async logout(@CurrentUser() user: any, @Res({ passthrough: true }) res: Response) {
+[7m  [0m [91m                                                                          ~~~~~~~~[0m
+
+  [96msrc/modules/auth/auth.controller.ts[0m:[93m13[0m:[93m10[0m
+    [7m13[0m import { Response, Request } from 'express';
+    [7m  [0m [96m         ~~~~~~~~[0m
+    'Response' was imported here.
+[96msrc/modules/auth/auth.service.ts[0m:[93m18[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m18[0m import { Role } from '../../../common/enums/role.enum';
+[7m  [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.service.ts[0m:[93m166[0m:[93m48[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m166[0m     await this.userRepository.update(userId, { refreshTokenHash: null });
+[7m   [0m [91m                                               ~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m44[0m:[93m3[0m
+    [7m44[0m   refreshTokenHash: string;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'refreshTokenHash' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m176[0m:[93m45[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m176[0m     expiry.setMinutes(expiry.getMinutes() + this.configService.get<number>('OTP_EXPIRY_MINUTES'));
+[7m   [0m [91m                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.service.ts[0m:[93m207[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m207[0m       otpHash: null,
+[7m   [0m [91m      ~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m47[0m:[93m3[0m
+    [7m47[0m   otpHash: string;
+    [7m  [0m [96m  ~~~~~~~[0m
+    The expected type comes from property 'otpHash' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m208[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type '(() => string) | _QueryDeepPartialEntity<Date> | undefined'.
+
+[7m208[0m       otpExpiry: null,
+[7m   [0m [91m      ~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m50[0m:[93m3[0m
+    [7m50[0m   otpExpiry: Date;
+    [7m  [0m [96m  ~~~~~~~~~[0m
+    The expected type comes from property 'otpExpiry' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m257[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m257[0m       passwordResetToken: null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m53[0m:[93m3[0m
+    [7m53[0m   passwordResetToken: string;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'passwordResetToken' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m258[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type '(() => string) | _QueryDeepPartialEntity<Date> | undefined'.
+
+[7m258[0m       passwordResetExpiry: null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m56[0m:[93m3[0m
+    [7m56[0m   passwordResetExpiry: Date;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'passwordResetExpiry' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m259[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m259[0m       refreshTokenHash: null, // Invalidate all sessions
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m44[0m:[93m3[0m
+    [7m44[0m   refreshTokenHash: string;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'refreshTokenHash' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/categories/categories.controller.ts[0m:[93m15[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m15[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/categories/categories.controller.ts[0m:[93m16[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/roles.guard' or its corresponding type declarations.
+
+[7m16[0m import { RolesGuard } from '../../../common/guards/roles.guard';
+[7m  [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/categories/categories.controller.ts[0m:[93m17[0m:[93m23[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/roles.decorator' or its corresponding type declarations.
+
+[7m17[0m import { Roles } from '../../../common/decorators/roles.decorator';
+[7m  [0m [91m                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/categories/categories.controller.ts[0m:[93m18[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m18[0m import { Role } from '../../../common/enums/role.enum';
+[7m  [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/categories/categories.controller.ts[0m:[93m19[0m:[93m24[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/public.decorator' or its corresponding type declarations.
+
+[7m19[0m import { Public } from '../../../common/decorators/public.decorator';
+[7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m14[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m14[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m15[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/roles.guard' or its corresponding type declarations.
+
+[7m15[0m import { RolesGuard } from '../../../common/guards/roles.guard';
+[7m  [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m16[0m:[93m23[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/roles.decorator' or its corresponding type declarations.
+
+[7m16[0m import { Roles } from '../../../common/decorators/roles.decorator';
+[7m  [0m [91m                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m17[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m17[0m import { Role } from '../../../common/enums/role.enum';
+[7m  [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m18[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/current-user.decorator' or its corresponding type declarations.
+
+[7m18[0m import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+[7m  [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m19[0m:[93m31[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/dto/pagination.dto' or its corresponding type declarations.
+
+[7m19[0m import { PaginationDto } from '../../../common/dto/pagination.dto';
+[7m  [0m [91m                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.controller.ts[0m:[93m20[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/order-status.enum' or its corresponding type declarations.
+
+[7m20[0m import { OrderStatus } from '../../../common/enums/order-status.enum';
+[7m  [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/orders/orders.service.ts[0m:[93m13[0m:[93m59[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/order-status.enum' or its corresponding type declarations.
+
+[7m13[0m import { OrderStatus, PaymentStatus, PaymentMethod } from '../../../common/enums/order-status.enum';
+[7m  [0m [91m                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/payments/payments.controller.ts[0m:[93m4[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m4[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/payments/payments.controller.ts[0m:[93m5[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/current-user.decorator' or its corresponding type declarations.
+
+[7m5[0m import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+[7m [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/payments/payments.service.ts[0m:[93m5[0m:[93m27[0m - [91merror[0m[90m TS2497: [0mThis module can only be referenced with ECMAScript imports/exports by turning on the 'allowSyntheticDefaultImports' flag and referencing its default export.
+
+[7m5[0m import * as Razorpay from 'razorpay';
+[7m [0m [91m                          ~~~~~~~~~~[0m
+[96msrc/modules/payments/payments.service.ts[0m:[93m8[0m:[93m44[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/order-status.enum' or its corresponding type declarations.
+
+[7m8[0m import { OrderStatus, PaymentStatus } from '../../../common/enums/order-status.enum';
+[7m [0m [91m                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/payments/payments.service.ts[0m:[93m63[0m:[93m29[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | Uint8Array<ArrayBufferLike> | KeyObject | Uint8ClampedArray<ArrayBufferLike> | Uint16Array<...> | ... 9 more ... | undefined' is not assignable to parameter of type 'KeyObject | BinaryLike'.
+  Type 'undefined' is not assignable to type 'KeyObject | BinaryLike'.
+
+[7m63[0m       .createHmac('sha256', this.configService.get('RAZORPAY_KEY_SECRET'))
+[7m  [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/products/products.controller.ts[0m:[93m18[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m18[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/products/products.controller.ts[0m:[93m19[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/roles.guard' or its corresponding type declarations.
+
+[7m19[0m import { RolesGuard } from '../../../common/guards/roles.guard';
+[7m  [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/products/products.controller.ts[0m:[93m20[0m:[93m23[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/roles.decorator' or its corresponding type declarations.
+
+[7m20[0m import { Roles } from '../../../common/decorators/roles.decorator';
+[7m  [0m [91m                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/products/products.controller.ts[0m:[93m21[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m21[0m import { Role } from '../../../common/enums/role.enum';
+[7m  [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/products/products.controller.ts[0m:[93m22[0m:[93m24[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/public.decorator' or its corresponding type declarations.
+
+[7m22[0m import { Public } from '../../../common/decorators/public.decorator';
+[7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m14[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m14[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m15[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/roles.guard' or its corresponding type declarations.
+
+[7m15[0m import { RolesGuard } from '../../../common/guards/roles.guard';
+[7m  [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m16[0m:[93m23[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/roles.decorator' or its corresponding type declarations.
+
+[7m16[0m import { Roles } from '../../../common/decorators/roles.decorator';
+[7m  [0m [91m                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m17[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m17[0m import { Role } from '../../../common/enums/role.enum';
+[7m  [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m18[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/current-user.decorator' or its corresponding type declarations.
+
+[7m18[0m import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+[7m  [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m19[0m:[93m24[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/public.decorator' or its corresponding type declarations.
+
+[7m19[0m import { Public } from '../../../common/decorators/public.decorator';
+[7m  [0m [91m                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reviews/reviews.controller.ts[0m:[93m20[0m:[93m31[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/dto/pagination.dto' or its corresponding type declarations.
+
+[7m20[0m import { PaginationDto } from '../../../common/dto/pagination.dto';
+[7m  [0m [91m                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/upload/upload.controller.ts[0m:[93m14[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m14[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/upload/upload.service.ts[0m:[93m12[0m:[93m7[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m12[0m       this.configService.get('SUPABASE_URL'),
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/upload/upload.service.ts[0m:[93m24[0m:[93m13[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m24[0m       .from(this.configService.get('SUPABASE_STORAGE_BUCKET'))
+[7m  [0m [91m            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/upload/upload.service.ts[0m:[93m33[0m:[93m13[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m33[0m       .from(this.configService.get('SUPABASE_STORAGE_BUCKET'))
+[7m  [0m [91m            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/upload/upload.service.ts[0m:[93m46[0m:[93m13[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+[7m46[0m       .from(this.configService.get('SUPABASE_STORAGE_BUCKET'))
+[7m  [0m [91m            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/entities/user.entity.ts[0m:[93m81[0m:[93m12[0m - [91merror[0m[90m TS2790: [0mThe operand of a 'delete' operator must be optional.
+
+[7m81[0m     delete this.passwordHash;
+[7m  [0m [91m           ~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/entities/user.entity.ts[0m:[93m82[0m:[93m12[0m - [91merror[0m[90m TS2790: [0mThe operand of a 'delete' operator must be optional.
+
+[7m82[0m     delete this.refreshTokenHash;
+[7m  [0m [91m           ~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/entities/user.entity.ts[0m:[93m83[0m:[93m12[0m - [91merror[0m[90m TS2790: [0mThe operand of a 'delete' operator must be optional.
+
+[7m83[0m     delete this.otpHash;
+[7m  [0m [91m           ~~~~~~~~~~~~[0m
+[96msrc/modules/users/entities/user.entity.ts[0m:[93m84[0m:[93m12[0m - [91merror[0m[90m TS2790: [0mThe operand of a 'delete' operator must be optional.
+
+[7m84[0m     delete this.otpExpiry;
+[7m  [0m [91m           ~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/entities/user.entity.ts[0m:[93m85[0m:[93m12[0m - [91merror[0m[90m TS2790: [0mThe operand of a 'delete' operator must be optional.
+
+[7m85[0m     delete this.passwordResetToken;
+[7m  [0m [91m           ~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/entities/user.entity.ts[0m:[93m86[0m:[93m12[0m - [91merror[0m[90m TS2790: [0mThe operand of a 'delete' operator must be optional.
+
+[7m86[0m     delete this.passwordResetExpiry;
+[7m  [0m [91m           ~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/users.controller.ts[0m:[93m14[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m14[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m  [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/users.controller.ts[0m:[93m15[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/roles.guard' or its corresponding type declarations.
+
+[7m15[0m import { RolesGuard } from '../../../common/guards/roles.guard';
+[7m  [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/users.controller.ts[0m:[93m16[0m:[93m23[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/roles.decorator' or its corresponding type declarations.
+
+[7m16[0m import { Roles } from '../../../common/decorators/roles.decorator';
+[7m  [0m [91m                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/users.controller.ts[0m:[93m17[0m:[93m22[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/enums/role.enum' or its corresponding type declarations.
+
+[7m17[0m import { Role } from '../../../common/enums/role.enum';
+[7m  [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/users.controller.ts[0m:[93m18[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/current-user.decorator' or its corresponding type declarations.
+
+[7m18[0m import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+[7m  [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/users/users.controller.ts[0m:[93m21[0m:[93m31[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/dto/pagination.dto' or its corresponding type declarations.
+
+[7m21[0m import { PaginationDto } from '../../../common/dto/pagination.dto';
+[7m  [0m [91m                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/wishlist/wishlist.controller.ts[0m:[93m4[0m:[93m30[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/guards/jwt-auth.guard' or its corresponding type declarations.
+
+[7m4[0m import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
+[7m [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/wishlist/wishlist.controller.ts[0m:[93m5[0m:[93m29[0m - [91merror[0m[90m TS2307: [0mCannot find module '../../../common/decorators/current-user.decorator' or its corresponding type declarations.
+
+[7m5[0m import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+[7m [0m [91m                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+Found 83 error(s).
+

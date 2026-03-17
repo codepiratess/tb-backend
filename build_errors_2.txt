@@ -1,0 +1,103 @@
+
+> tb-backend@0.0.1 build
+> nest build
+
+[96mnode_modules/@supabase/auth-js/src/lib/fetch.ts[0m:[93m215[0m:[93m7[0m - [91merror[0m[90m TS18047: [0m'session' is possibly 'null'.
+
+[7m215[0m       session.expires_at = expiresAt(data.expires_in)
+[7m   [0m [91m      ~~~~~~~[0m
+[96mnode_modules/@supabase/auth-js/src/lib/helpers.ts[0m:[93m107[0m:[93m37[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m107[0m     return (...args) => customFetch(...args)
+[7m   [0m [91m                                    ~~~~~~~[0m
+[96mnode_modules/@supabase/auth-js/src/lib/helpers.ts[0m:[93m109[0m:[93m29[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m109[0m   return (...args) => fetch(...args)
+[7m   [0m [91m                            ~~~~~~~[0m
+[96mnode_modules/@supabase/functions-js/src/helper.ts[0m:[93m5[0m:[93m37[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m5[0m     return (...args) => customFetch(...args)
+[7m [0m [91m                                    ~~~~~~~[0m
+[96mnode_modules/@supabase/functions-js/src/helper.ts[0m:[93m7[0m:[93m29[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m7[0m   return (...args) => fetch(...args)
+[7m [0m [91m                            ~~~~~~~[0m
+[96mnode_modules/@supabase/realtime-js/src/RealtimeChannel.ts[0m:[93m337[0m:[93m42[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; type: string; filter: { [key: string]: any; }; callback: Function; }' is not assignable to parameter of type 'never'.
+
+[7m337[0m                 newPostgresBindings.push({
+[7m   [0m [91m                                         ~[0m
+[7m338[0m                   ...clientPostgresBinding,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m339[0m                   id: serverPostgresFilter.id,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m340[0m                 })
+[7m   [0m [91m~~~~~~~~~~~~~~~~~[0m
+[96mnode_modules/@supabase/realtime-js/src/RealtimeClient.ts[0m:[93m531[0m:[93m39[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m531[0m       return (...args) => customFetch(...args)
+[7m   [0m [91m                                      ~~~~~~~[0m
+[96mnode_modules/@supabase/realtime-js/src/RealtimeClient.ts[0m:[93m533[0m:[93m31[0m - [91merror[0m[90m TS2556: [0mA spread argument must either have a tuple type or be passed to a rest parameter.
+
+[7m533[0m     return (...args) => fetch(...args)
+[7m   [0m [91m                              ~~~~~~~[0m
+[96msrc/modules/auth/auth.service.ts[0m:[93m166[0m:[93m48[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m166[0m     await this.userRepository.update(userId, { refreshTokenHash: null });
+[7m   [0m [91m                                               ~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m44[0m:[93m3[0m
+    [7m44[0m   refreshTokenHash: string;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'refreshTokenHash' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m176[0m:[93m45[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m176[0m     expiry.setMinutes(expiry.getMinutes() + this.configService.get<number>('OTP_EXPIRY_MINUTES'));
+[7m   [0m [91m                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/auth/auth.service.ts[0m:[93m207[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m207[0m       otpHash: null,
+[7m   [0m [91m      ~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m47[0m:[93m3[0m
+    [7m47[0m   otpHash: string;
+    [7m  [0m [96m  ~~~~~~~[0m
+    The expected type comes from property 'otpHash' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m208[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type '(() => string) | _QueryDeepPartialEntity<Date> | undefined'.
+
+[7m208[0m       otpExpiry: null,
+[7m   [0m [91m      ~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m50[0m:[93m3[0m
+    [7m50[0m   otpExpiry: Date;
+    [7m  [0m [96m  ~~~~~~~~~[0m
+    The expected type comes from property 'otpExpiry' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m257[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m257[0m       passwordResetToken: null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m53[0m:[93m3[0m
+    [7m53[0m   passwordResetToken: string;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'passwordResetToken' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m258[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type '(() => string) | _QueryDeepPartialEntity<Date> | undefined'.
+
+[7m258[0m       passwordResetExpiry: null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m56[0m:[93m3[0m
+    [7m56[0m   passwordResetExpiry: Date;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'passwordResetExpiry' which is declared here on type '_QueryDeepPartialEntity<User>'
+[96msrc/modules/auth/auth.service.ts[0m:[93m259[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType 'null' is not assignable to type 'string | (() => string) | undefined'.
+
+[7m259[0m       refreshTokenHash: null, // Invalidate all sessions
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/users/entities/user.entity.ts[0m:[93m44[0m:[93m3[0m
+    [7m44[0m   refreshTokenHash: string;
+    [7m  [0m [96m  ~~~~~~~~~~~~~~~~[0m
+    The expected type comes from property 'refreshTokenHash' which is declared here on type '_QueryDeepPartialEntity<User>'
+
+Found 15 error(s).
+
