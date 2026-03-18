@@ -40,6 +40,11 @@ export class CreateProductDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  slug?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   shortDescription?: string;
 
   @ApiProperty()
@@ -91,4 +96,24 @@ export class CreateProductDto {
   @IsOptional()
   @IsBoolean()
   isNewArrival?: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  freeDelivery?: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  sku?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsNumber()
+  lowStockThreshold?: number;
 }

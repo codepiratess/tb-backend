@@ -44,7 +44,6 @@ export class OrdersController {
     return this.ordersService.findOne(id, user.userId);
   }
 
-  // Admin Routes
   @Patch(':id/status')
   @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Update order status (Admin only)' })
@@ -55,5 +54,12 @@ export class OrdersController {
     @CurrentUser() admin: any,
   ) {
     return this.ordersService.updateStatus(id, status, note, admin.userId);
+  }
+
+  @Get('admin/all')
+  @Roles(Role.ADMIN)
+  @ApiOperation({ summary: 'Get all orders (Admin only)' })
+  async findAllAdmin(@Query() filters: any) {
+    return this.ordersService.findAllAdmin(filters);
   }
 }

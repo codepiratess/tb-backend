@@ -182,4 +182,88 @@ export class OrdersService {
 
     return updated;
   }
+
+  async findAllAdmin(filters: any) {
+    const {
+      page = 1,
+      limit = 20,
+      status,
+      search,
+      paymentStatus,
+      dateRange, // 'today', 'yesterday', 'week', 'month'
+      groupByStatus,
+      sortBy = 'createdAt',
+      sortOrder = 'DESC',
+    } = filters;
+
+    if (groupByStatus) {
+      const counts = await this.orderRepository
+        .createQueryBuilder('order')
+        .select('order.status', 'status')
+        .addSelect('COUNT(*)', 'count')
+        .groupBy('order.status')
+        .getRawMany();
+      
+      const total = await this.orderRepository.count();
+      
+      return {
+        all: Number(total),
+        pending: Number(counts.find(c => c.status === OrderStatus.PENDING)?.count || 0),
+        confirmed: Number(counts.find(c => c.status === OrderStatus.CONFIRMED)?.count || 0),
+        shipped: Number(counts.find(c => c.status === OrderStatus.SHIPPED)?.count || 0),
+        delivered: Number(counts.find(c => c.status === OrderStatus.DELIVERED)?.count || 0),
+        cancelled: Number(counts.find(c => c.status === OrderStatus.CANCELLED)?.count || 0),
+      };
+    }
+
+    const qb = this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.user', 'user')
+      .leftJoinAndSelect('order.items', 'items')
+      .where('order.deletedAt IS NULL');
+
+    if (status && status !== 'all') {
+      qb.andWhere('order.status = :status', { status });
+    }
+
+    if (paymentStatus) {
+      qb.andWhere('order.paymentStatus = :paymentStatus', { paymentStatus });
+    }
+
+    if (search) {
+      qb.andWhere(
+        '(order.orderNumber ILIKE :search OR user.firstName ILIKE :search OR user.email ILIKE :search)',
+        { search: `%${search}%` },
+      );
+    }
+
+    if (dateRange) {
+      const now = new Date();
+      let startDate: Date;
+      if (dateRange === 'today') {
+        startDate = new Date(now.setHours(0, 0, 0, 0));
+        qb.andWhere('order.createdAt >= :startDate', { startDate });
+      } else if (dateRange === 'week') {
+        startDate = new Date(now.setDate(now.getDate() - 7));
+        qb.andWhere('order.createdAt >= :startDate', { startDate });
+      } else if (dateRange === 'month') {
+        startDate = new Date(now.setMonth(now.getMonth() - 1));
+        qb.andWhere('order.createdAt >= :startDate', { startDate });
+      }
+    }
+
+    const [data, total] = await qb
+      .orderBy(`order.${sortBy}`, sortOrder as any)
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getManyAndCount();
+
+    return {
+      data,
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      totalPages: Math.ceil(total / limit),
+    };
+  }
 }

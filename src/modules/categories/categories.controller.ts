@@ -31,6 +31,13 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
+  @Public()
+  @Get(':slugOrId')
+  @ApiOperation({ summary: 'Get a single category by slug or ID' })
+  async findOne(@Param('slugOrId') slugOrId: string) {
+    return this.categoriesService.findOne(slugOrId);
+  }
+
   @Post()
   @Roles(Role.ADMIN)
   @ApiBearerAuth()

@@ -27,6 +27,20 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Public()
+  @Get('featured')
+  @ApiOperation({ summary: 'Get featured products' })
+  async findFeatured() {
+    return this.productsService.findFeatured();
+  }
+
+  @Public()
+  @Get('new-arrivals')
+  @ApiOperation({ summary: 'Get new arrivals' })
+  async findNewArrivals() {
+    return this.productsService.findNewArrivals();
+  }
+
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Get all products with filters and pagination' })
   async findAll(@Query() filter: ProductFilterDto) {
@@ -65,6 +79,24 @@ export class ProductsController {
   @ApiOperation({ summary: 'Update product stock (Admin only)' })
   async updateStock(@Param('id') id: string, @Body('stock') stock: number) {
     return this.productsService.updateStock(id, stock);
+  }
+
+  @Patch(':id/toggle-status')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Toggle product active status (Admin only)' })
+  async toggleStatus(@Param('id') id: string) {
+    return this.productsService.toggleStatus(id);
+  }
+
+  @Patch(':id/toggle-featured')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Toggle product featured status (Admin only)' })
+  async toggleFeatured(@Param('id') id: string) {
+    return this.productsService.toggleFeatured(id);
   }
 
   @Delete(':id')

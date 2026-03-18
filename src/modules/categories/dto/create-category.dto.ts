@@ -22,6 +22,11 @@ export class CreateCategoryDto {
   @IsBoolean()
   isActive?: boolean;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  slug?: string;
+
   @ApiPropertyOptional({ default: 0 })
   @IsOptional()
   @IsNumber()

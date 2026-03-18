@@ -1,46 +1,68 @@
-import { IsOptional, IsNumber, IsUUID, IsString, IsBoolean } from 'class-validator';
-import { Type, Transform } from 'class-transformer';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional, IsString, IsNumber, IsBoolean, IsUUID, Min, Max } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
 import { PaginationDto } from '../../../common/dto/pagination.dto';
 
 export class ProductFilterDto extends PaginationDto {
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsUUID()
-  categoryId?: string;
-
-  @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  categorySlug?: string;
+  search?: string
 
-  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  // Accepts BOTH UUID and slug
+  categoryId?: string
+
+  @IsOptional()
+  @IsString()
+  categorySlug?: string
+
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
-  minPrice?: number;
+  @Min(0)
+  minPrice?: number
 
-  @ApiPropertyOptional()
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
-  maxPrice?: number;
+  maxPrice?: number
 
-  @ApiPropertyOptional()
   @IsOptional()
-  @Transform(({ value }) => value === 'true' || value === true)
-  @IsBoolean()
-  isFeatured?: boolean;
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  @Max(5)
+  minRating?: number
 
-  @ApiPropertyOptional()
   @IsOptional()
-  @Transform(({ value }) => value === 'true' || value === true)
+  @Transform(({ value }) => 
+    value === 'true' || value === true
+  )
   @IsBoolean()
-  isNewArrival?: boolean;
+  inStock?: boolean
 
-  @ApiPropertyOptional()
   @IsOptional()
-  @Transform(({ value }) => value === 'true' || value === true)
+  @Transform(({ value }) => 
+    value === 'true' || value === true
+  )
   @IsBoolean()
-  inStock?: boolean;
+  isFeatured?: boolean
+
+  @IsOptional()
+  @Transform(({ value }) => 
+    value === 'true' || value === true
+  )
+  @IsBoolean()
+  isNewArrival?: boolean
+
+  @IsOptional()
+  @Transform(({ value }) => 
+    value === 'true' || value === true
+  )
+  @IsBoolean()
+  includeInactive?: boolean
+
+  @IsOptional()
+  @IsString()
+  stock?: string
 }
