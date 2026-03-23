@@ -32,6 +32,8 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { BannersModule } from './modules/banners/banners.module';
+import { CartModule } from './modules/cart/cart.module';
 
 @Module({
   imports: [
@@ -94,6 +96,8 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
     UploadModule,
     NotificationsModule,
     AnalyticsModule,
+    BannersModule,
+    CartModule,
   ],
   providers: [
     {

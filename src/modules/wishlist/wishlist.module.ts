@@ -9,6 +9,6 @@ import { Product } from '../products/entities/product.entity';
   imports: [TypeOrmModule.forFeature([Wishlist, Product])],
   controllers: [WishlistController],
   providers: [WishlistService],
-  exports: [WishlistService, TypeOrmModule], // Export TypeOrmModule for AuthService to use Wishlist repo
+  exports: [WishlistService, TypeOrmModule],
 })
 export class WishlistModule {}

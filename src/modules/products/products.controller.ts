@@ -26,29 +26,56 @@ import { Public } from '../../common/decorators/public.decorator';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Public()
-  @Get('featured')
-  @ApiOperation({ summary: 'Get featured products' })
-  async findFeatured() {
-    return this.productsService.findFeatured();
-  }
-
-  @Public()
-  @Get('new-arrivals')
-  @ApiOperation({ summary: 'Get new arrivals' })
-  async findNewArrivals() {
-    return this.productsService.findNewArrivals();
-  }
-
-  @Public()
   @Get()
+  @Public()
   @ApiOperation({ summary: 'Get all products with filters and pagination' })
-  async findAll(@Query() filter: ProductFilterDto) {
-    return this.productsService.findAll(filter);
+  async findAll(@Query() filterDto: ProductFilterDto) {
+    return this.productsService.findAll(filterDto);
   }
 
+  @Get('featured')
   @Public()
+  @ApiOperation({ summary: 'Get featured products' })
+  async findFeatured(@Query('limit') limit?: number) {
+    return this.productsService.findFeatured(limit || 10);
+  }
+
+  @Get('new-arrivals')
+  @Public()
+  @ApiOperation({ summary: 'Get new arrivals' })
+  async findNewArrivals(@Query('limit') limit?: number) {
+    return this.productsService.findNewArrivals(limit || 10);
+  }
+
+  @Get('search')
+  @Public()
+  @ApiOperation({ summary: 'Search products' })
+  async search(
+    @Query('q') q: string,
+    @Query('limit') limit?: number,
+  ) {
+    if (!q || q.trim().length < 2) {
+      return {
+        success: true,
+        data: {
+          data: [],
+          total: 0,
+          suggestions: [],
+        }
+      }
+    }
+    const result = await this.productsService.search(
+      q.trim(), 
+      Number(limit) || 8
+    )
+    return {
+      success: true,
+      data: result,
+    }
+  }
+
   @Get(':slug')
+  @Public()
   @ApiOperation({ summary: 'Get a single product by slug or ID' })
   async findOne(@Param('slug') slug: string) {
     return this.productsService.findOne(slug);
@@ -70,15 +97,6 @@ export class ProductsController {
   @ApiOperation({ summary: 'Update a product (Admin only)' })
   async update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
     return this.productsService.update(id, dto);
-  }
-
-  @Patch(':id/stock')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Update product stock (Admin only)' })
-  async updateStock(@Param('id') id: string, @Body('stock') stock: number) {
-    return this.productsService.updateStock(id, stock);
   }
 
   @Patch(':id/toggle-status')
@@ -108,3 +126,4 @@ export class ProductsController {
     return this.productsService.remove(id);
   }
 }
+

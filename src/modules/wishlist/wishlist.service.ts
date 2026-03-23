@@ -8,51 +8,122 @@ import { Product } from '../products/entities/product.entity';
 export class WishlistService {
   constructor(
     @InjectRepository(Wishlist)
-    private readonly wishlistRepository: Repository<Wishlist>,
+    private readonly wishlistRepo: Repository<Wishlist>,
     @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>,
+    private readonly productRepo: Repository<Product>,
   ) {}
 
-  async getWishlist(userId: string): Promise<Wishlist> {
-    let wishlist = await this.wishlistRepository.findOne({
-      where: { user: { id: userId } },
+  async getWishlist(userId: string) {
+    let wishlist = await this.wishlistRepo.findOne({
+      where: { userId },
+      relations: ['products', 'products.category'],
+    });
+
+    if (!wishlist) {
+      wishlist = await this.wishlistRepo.save(this.wishlistRepo.create({ userId }));
+      wishlist.products = [];
+    }
+
+    // Filter deleted/inactive products
+    const validProducts = (wishlist.products || []).filter(
+      (p) => p && p.isActive && !p.deletedAt,
+    );
+
+    return {
+      id: wishlist.id,
+      userId: wishlist.userId,
+      products: validProducts,
+      count: validProducts.length,
+    };
+  }
+
+  async addProduct(userId: string, productId: string) {
+    const product = await this.productRepo.findOne({
+      where: { id: productId, isActive: true },
+    });
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    let wishlist = await this.wishlistRepo.findOne({
+      where: { userId },
       relations: ['products'],
     });
 
     if (!wishlist) {
-      wishlist = this.wishlistRepository.create({
-        user: { id: userId } as any,
-        products: [],
-      });
-      await this.wishlistRepository.save(wishlist);
+      wishlist = await this.wishlistRepo.save(this.wishlistRepo.create({ userId }));
+      wishlist.products = [];
     }
 
-    return wishlist;
-  }
-
-  async addProduct(userId: string, productId: string): Promise<Wishlist> {
-    const wishlist = await this.getWishlist(userId);
-    const product = await this.productRepository.findOne({ where: { id: productId } });
-
-    if (!product) throw new NotFoundException('Product not found');
-
-    if (!wishlist.products.some((p) => p.id === productId)) {
+    const alreadyIn = wishlist.products.some((p) => p.id === productId);
+    if (!alreadyIn) {
       wishlist.products.push(product);
-      return this.wishlistRepository.save(wishlist);
+      await this.wishlistRepo.save(wishlist);
     }
 
-    return wishlist;
+    return this.getWishlist(userId);
   }
 
-  async removeProduct(userId: string, productId: string): Promise<Wishlist> {
-    const wishlist = await this.getWishlist(userId);
-    wishlist.products = wishlist.products.filter((p) => p.id !== productId);
-    return this.wishlistRepository.save(wishlist);
+  async removeProduct(userId: string, productId: string) {
+    const wishlist = await this.wishlistRepo.findOne({
+      where: { userId },
+      relations: ['products'],
+    });
+
+    if (!wishlist) return this.getWishlist(userId);
+
+    wishlist.products = (wishlist.products || []).filter((p) => p.id !== productId);
+    await this.wishlistRepo.save(wishlist);
+    return this.getWishlist(userId);
   }
 
-  async clearWishlist(userId: string): Promise<void> {
-    const wishlist = await this.getWishlist(userId);
-    wishlist.products = [];
-    await this.wishlistRepository.save(wishlist);
+  async clearWishlist(userId: string) {
+    const wishlist = await this.wishlistRepo.findOne({
+      where: { userId },
+    });
+    if (wishlist) {
+      wishlist.products = [];
+      await this.wishlistRepo.save(wishlist);
+    }
+    return this.getWishlist(userId);
+  }
+
+  async checkProduct(userId: string, productId: string) {
+    const wishlist = await this.wishlistRepo.findOne({
+      where: { userId },
+      relations: ['products'],
+    });
+
+    const isInWishlist =
+      wishlist?.products?.some((p) => p.id === productId) || false;
+
+    return { isInWishlist, productId };
+  }
+
+  async syncWishlist(userId: string, productIds: string[]) {
+    let wishlist = await this.wishlistRepo.findOne({
+      where: { userId },
+      relations: ['products'],
+    });
+
+    if (!wishlist) {
+      wishlist = await this.wishlistRepo.save(this.wishlistRepo.create({ userId }));
+      wishlist.products = [];
+    }
+
+    for (const productId of productIds) {
+      const product = await this.productRepo.findOne({
+        where: { id: productId, isActive: true },
+      });
+      if (!product) continue;
+
+      const exists = wishlist.products.some((p) => p.id === productId);
+      if (!exists) {
+        wishlist.products.push(product);
+      }
+    }
+
+    await this.wishlistRepo.save(wishlist);
+    return this.getWishlist(userId);
   }
 }

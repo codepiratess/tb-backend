@@ -372,4 +372,47 @@ export class ProductsService {
     product.isFeatured = !product.isFeatured;
     return this.productRepository.save(product);
   }
+
+  async search(query: string, limit = 8) {
+    try {
+      const products = await this.productRepository
+        .createQueryBuilder('product')
+        .leftJoinAndSelect('product.category', 'category')
+        .where('product.deletedAt IS NULL')
+        .andWhere('product.isActive = :active', { active: true })
+        .andWhere(
+          '(LOWER(product.name) LIKE LOWER(:q) OR LOWER(product.description) LIKE LOWER(:q))',
+          { q: `%${query}%` },
+        )
+        .orderBy('product.soldCount', 'DESC')
+        .take(limit)
+        .getMany();
+
+      const categories = await this.categoryRepository
+        .createQueryBuilder('cat')
+        .where('cat.isActive = true')
+        .andWhere('cat.deletedAt IS NULL')
+        .andWhere('LOWER(cat.name) LIKE LOWER(:q)', { q: `%${query}%` })
+        .take(3)
+        .getMany();
+
+      return {
+        data: products,
+        total: products.length,
+        suggestions: categories.map((c) => ({
+          type: 'category',
+          name: c.name,
+          slug: c.slug,
+        })),
+      };
+    } catch (error) {
+      console.error('Search error:', error);
+      return {
+        data: [],
+        total: 0,
+        suggestions: [],
+      };
+    }
+  }
 }
+
