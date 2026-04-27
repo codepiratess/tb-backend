@@ -34,16 +34,10 @@ export class OrdersService {
     await queryRunner.startTransaction();
 
     try {
-      // 1. Validate Address
-      const address = await this.addressRepository.findOne({
-        where: { id: dto.addressId, user: { id: userId } },
-      });
-      if (!address) throw new NotFoundException('Shipping address not found');
-
       let subtotal = 0;
       const orderItems: OrderItem[] = [];
 
-      // 2. Process Items
+      // 1. Process Items
       for (const itemDto of dto.items) {
         const product = await queryRunner.manager.findOne(Product, {
           where: { id: itemDto.productId, isActive: true },
@@ -60,7 +54,7 @@ export class OrdersService {
         subtotal += totalPrice;
 
         const orderItem = queryRunner.manager.create(OrderItem, {
-          product,
+          productId: product.id,
           quantity: itemDto.quantity,
           unitPrice,
           totalPrice,
@@ -77,14 +71,14 @@ export class OrdersService {
         await queryRunner.manager.save(product);
       }
 
-      // 3. Totals
+      // 2. Totals
       const deliveryCharge = subtotal > 499 ? 0 : 40;
       const totalAmount = subtotal + deliveryCharge;
 
-      // 4. Create Order
+      // 3. Create Order
       const orderNumber = `TB${Date.now()}${Math.floor(100 + Math.random() * 900)}`;
       const order = queryRunner.manager.create(Order, {
-        user: { id: userId } as any,
+        userId,
         orderNumber,
         subtotal,
         deliveryCharge,
@@ -92,7 +86,7 @@ export class OrdersService {
         paymentMethod: dto.paymentMethod,
         status: dto.paymentMethod === PaymentMethod.COD ? OrderStatus.PENDING : OrderStatus.AWAITING_PAYMENT,
         paymentStatus: PaymentStatus.PENDING,
-        shippingAddress: address,
+        shippingAddress: dto.shippingAddress,
         notes: dto.notes,
         statusHistory: [
           {
@@ -105,9 +99,9 @@ export class OrdersService {
 
       const savedOrder = await queryRunner.manager.save(order);
 
-      // 5. Save Items
+      // 4. Save Items
       for (const item of orderItems) {
-        item.order = savedOrder;
+        item.orderId = savedOrder.id;
         await queryRunner.manager.save(item);
       }
 
@@ -115,7 +109,7 @@ export class OrdersService {
 
       // Async Notifications
       this.emailService.sendOrderConfirmedEmail(userId, savedOrder).catch(() => {});
-      this.smsService.sendOrderSMS(address.phone, savedOrder.orderNumber, 'CONFIRMED').catch(() => {});
+      this.smsService.sendOrderSMS(dto.shippingAddress.phone, savedOrder.orderNumber, 'CONFIRMED').catch(() => {});
 
       return savedOrder;
     } catch (err) {
@@ -129,7 +123,7 @@ export class OrdersService {
   async findUserOrders(userId: string, pagination: any) {
     const { page = 1, limit = 20 } = pagination;
     const [data, total] = await this.orderRepository.findAndCount({
-      where: { user: { id: userId } },
+      where: { userId },
       order: { createdAt: 'DESC' },
       skip: (page - 1) * limit,
       take: limit,
@@ -146,7 +140,7 @@ export class OrdersService {
   }
 
   async findOne(id: string, userId?: string) {
-    const where = userId ? { id, user: { id: userId } } : { id };
+    const where = userId ? { id, userId } : { id };
     const order = await this.orderRepository.findOne({
       where,
       relations: ['items', 'user'],

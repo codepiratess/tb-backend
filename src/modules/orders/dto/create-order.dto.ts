@@ -1,28 +1,79 @@
 import {
-  IsArray,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUUID,
-  Min,
-  ValidateNested,
-} from 'class-validator';
-import { Type } from 'class-transformer';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PaymentMethod } from '../../../common/enums/order-status.enum';
+  IsArray, IsEnum, IsNotEmpty,
+  IsOptional, IsString, IsUUID,
+  IsInt, Min, ValidateNested,
+  IsObject, IsNumber, MaxLength
+} from 'class-validator'
+import { Type, Transform } from 
+  'class-transformer'
+import { ApiProperty } from '@nestjs/swagger'
 
-class OrderItemDto {
-  @ApiProperty()
+export class OrderItemDto {
+  @ApiProperty({ 
+    example: 'uuid-here' 
+  })
   @IsUUID()
-  @IsNotEmpty()
-  productId: string;
+  productId: string
 
-  @ApiProperty()
+  @ApiProperty({ example: 1 })
   @IsInt()
   @Min(1)
-  quantity: number;
+  quantity: number
+}
+
+export class ShippingAddressDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  fullName: string
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  phone: string
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  addressLine1: string
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  addressLine2?: string
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  landmark?: string
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  city: string
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  state: string
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  pincode: string
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  addressType?: string
+}
+
+export enum PaymentMethod {
+  COD = 'cod',
+  RAZORPAY = 'razorpay',
+  UPI = 'upi',
+  CARD = 'card',
+  NETBANKING = 'netbanking',
 }
 
 export class CreateOrderDto {
@@ -30,19 +81,22 @@ export class CreateOrderDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderItemDto)
-  items: OrderItemDto[];
+  items: OrderItemDto[]
 
-  @ApiProperty()
-  @IsUUID()
-  @IsNotEmpty()
-  addressId: string;
+  @ApiProperty({ 
+    type: ShippingAddressDto 
+  })
+  @IsObject()
+  @ValidateNested()
+  @Type(() => ShippingAddressDto)
+  shippingAddress: ShippingAddressDto
 
   @ApiProperty({ enum: PaymentMethod })
   @IsEnum(PaymentMethod)
-  paymentMethod: PaymentMethod;
+  paymentMethod: PaymentMethod
 
-  @ApiPropertyOptional()
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  notes?: string;
+  notes?: string
 }

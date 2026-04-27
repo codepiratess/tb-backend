@@ -1,31 +1,64 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../../../common/entities/base.entity';
-import { Order } from './order.entity';
-import { Product } from '../../products/entities/product.entity';
+import {
+  Entity, Column, ManyToOne, JoinColumn
+} from 'typeorm'
+import { BaseEntity } from 
+  '../../../common/entities/base.entity'
+import { Order } from './order.entity'
+import { Product } from 
+  '../../products/entities/product.entity'
 
 @Entity('order_items')
 export class OrderItem extends BaseEntity {
-  @Column({ type: 'int' })
-  quantity: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  unitPrice: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  totalPrice: number;
 
   @Column()
-  productName: string;
+  orderId: string
+
+  @ManyToOne(
+    () => Order,
+    order => order.items,
+    { onDelete: 'CASCADE' }
+  )
+  @JoinColumn({ name: 'orderId' })
+  order: Order
 
   @Column({ nullable: true })
-  productImage: string;
+  productId: string
 
-  @Column()
-  productSlug: string;
+  @ManyToOne(() => Product, {
+    nullable: true,
+    onDelete: 'SET NULL',
+    eager: false,
+  })
+  @JoinColumn({ name: 'productId' })
+  product: Product
 
-  @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
-  order: Order;
+  @Column({ type: 'int' })
+  quantity: number
 
-  @ManyToOne(() => Product, (product) => product.orderItems)
-  product: Product;
+  @Column({ 
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2 
+  })
+  unitPrice: number
+
+  @Column({ 
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2 
+  })
+  totalPrice: number
+
+  @Column({ type: 'varchar', length: 200 })
+  productName: string
+
+  @Column({ nullable: true, type: 'text' })
+  productImage: string
+
+  @Column({ 
+    nullable: true, 
+    type: 'varchar', 
+    length: 220 
+  })
+  productSlug: string
 }

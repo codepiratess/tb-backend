@@ -100,16 +100,16 @@ class EnvironmentVariables {
   @IsString()
   FAST2SMS_API_KEY: string;
 
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   RAZORPAY_KEY_ID: string;
 
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   RAZORPAY_KEY_SECRET: string;
 
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   RAZORPAY_WEBHOOK_SECRET: string;
 
   @IsNumber()
